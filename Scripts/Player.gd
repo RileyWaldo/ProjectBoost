@@ -13,6 +13,8 @@ extends RigidBody3D
 @onready var boosterParticles: GPUParticles3D = $Particles/BoosterParticles
 @onready var boosteParticlesLeft: GPUParticles3D = $Particles/BoosterParticlesLeft
 @onready var boosterParticlesRight: GPUParticles3D = $Particles/BoosterParticlesRight
+@onready var explosionParticles: GPUParticles3D = $Particles/ExplosionParticles
+@onready var successParticles: GPUParticles3D = $Particles/SuccessParticles
 
 const goalGroup: String = "Goal"
 const deathGroup: String = "Hazard"
@@ -23,6 +25,7 @@ func CrashSequence() -> void:
 	if(isTransitioning):
 		return
 	
+	explosionParticles.emitting = true
 	boosterParticles.emitting = false
 	audioRocket.stop()
 	audioExplosion.play()
@@ -35,6 +38,7 @@ func CompleteLevel(filePath: String) -> void:
 	if(isTransitioning):
 		return
 	
+	successParticles.emitting = true
 	audioSuccess.play()
 	isTransitioning = true
 	var tween: Tween = create_tween()
@@ -59,6 +63,9 @@ func MovePlayer(delta: float) -> void:
 		apply_torque(Vector3(0.0, 0.0, -torqueForce * delta))
 
 func _process(delta: float) -> void:
+	if(Input.is_action_just_pressed("ui_cancel")):
+		get_tree().quit()
+	
 	MovePlayer(delta)
 	
 	if(!isTransitioning and Input.is_action_just_pressed("boost")):

@@ -4,7 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://3bu56gtuoqqk" path="res://GameObjects/Player.tscn" id="1_hb0y7"]
 
 [sub_resource type="Environment" id="Environment_usuxa"]
-fog_enabled = true
+background_mode = 1
+background_color = Color(0.043137256, 0.007843138, 0, 1)
+fog_light_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_hb0y7"]
 
@@ -24,30 +26,111 @@ environment = SubResource("Environment_usuxa")
 camera_attributes = SubResource("CameraAttributesPractical_hb0y7")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.89391965, 0.25438136, -0.3690498, 0.4482272, -0.50732416, 0.7360126, 0, -0.8233543, -0.5675277, 0, 15, 0)
+transform = Transform3D(0.9032979, 0.2434773, -0.35323048, 0.065862566, 0.7348921, 0.67497826, 0.42392814, -0.6329712, 0.6477904, 0, 15, 0)
+light_energy = 0.669
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 14)
+transform = Transform3D(1, 0, 0, 0, 0.9870944, 0.16013962, 0, -0.16013962, 0.9870944, 0, 9.433006, 12.284441)
 
 [node name="Floor" type="CSGBox3D" parent="." groups=["Hazard"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00081825256, -3.976243, -0.00765419)
 use_collision = true
 size = Vector3(30, 8, 5)
 material = SubResource("StandardMaterial3D_jt1vd")
 
+[node name="Wall" type="CSGBox3D" parent="Floor" groups=["Hazard"]]
+transform = Transform3D(0.29172075, -0.9565035, 0, 0.9565035, 0.29172075, 0, 0, 0, 1, -14.347285, 8.791959, 0)
+use_collision = true
+size = Vector3(10, 2.8026123, 4)
+material = SubResource("StandardMaterial3D_jt1vd")
+
+[node name="Wall2" type="CSGBox3D" parent="Floor" groups=["Hazard"]]
+transform = Transform3D(-0.18385722, -0.89633906, -0.40345135, 0.9727269, -0.22496375, 0.056514684, -0.14141822, -0.38205722, 0.91325414, 15.075494, 8.791959, 0)
+use_collision = true
+size = Vector3(10, 2.8026123, 4)
+material = SubResource("StandardMaterial3D_jt1vd")
+
+[node name="Ceiling" type="CSGBox3D" parent="Floor" groups=["Hazard"]]
+transform = Transform3D(-0.79079026, -0.5472682, -0.274132, 0.5995011, -0.7828643, -0.16649975, -0.1234881, -0.2960087, 0.9471692, 11.85984, 16.76952, -1.9075192)
+use_collision = true
+size = Vector3(10, 2.8026123, 8.027832)
+material = SubResource("StandardMaterial3D_jt1vd")
+
+[node name="Ceiling2" type="CSGBox3D" parent="Floor" groups=["Hazard"]]
+transform = Transform3D(-0.9367951, -0.28009507, -0.20967074, 0.32736188, -0.9131955, -0.24271117, -0.12348812, -0.29600874, 0.9471693, 3.6459846, 18.374165, 0.42735192)
+use_collision = true
+size = Vector3(9.137695, 6.049774, 4)
+material = SubResource("StandardMaterial3D_jt1vd")
+
+[node name="Ceiling3" type="CSGBox3D" parent="Floor" groups=["Hazard"]]
+transform = Transform3D(-0.9224881, -0.3538863, 0.1542083, 0.31241432, -0.91906685, -0.24023731, 0.22674438, -0.17343909, 0.958387, -5.2286553, 18.39419, 0.3003928)
+use_collision = true
+size = Vector3(9.137695, 6.0795593, 4)
+material = SubResource("StandardMaterial3D_jt1vd")
+
+[node name="Ceiling4" type="CSGBox3D" parent="Floor" groups=["Hazard"]]
+transform = Transform3D(-0.9224881, -0.35388628, 0.15420832, 0.072059736, -0.55032027, -0.8318386, 0.37924016, -0.7562491, 0.53316444, -11.737853, 17.085625, 0.62190235)
+use_collision = true
+size = Vector3(9.137695, 6.420868, 5.6708984)
+material = SubResource("StandardMaterial3D_jt1vd")
+
+[node name="BackgroundBlock" type="CSGBox3D" parent="Floor" groups=["Hazard"]]
+transform = Transform3D(0.17552142, -0.9844756, 0, 0.9844756, 0.17552142, 0, 0, 0, 1, -10.538286, 1.1633222, -6.543871)
+use_collision = true
+size = Vector3(21.68164, 3.6513367, 4.4101563)
+material = SubResource("StandardMaterial3D_jt1vd")
+
+[node name="BackgroundBlock2" type="CSGBox3D" parent="Floor" groups=["Hazard"]]
+transform = Transform3D(0.17552142, -0.9844756, 0, 0.9844756, 0.17552142, 0, 0, 0, 1, -1.4517399, 19.456, -10.082689)
+use_collision = true
+size = Vector3(21.68164, 4.5634155, 11.487793)
+material = SubResource("StandardMaterial3D_jt1vd")
+
+[node name="BackgroundBlock3" type="CSGBox3D" parent="Floor" groups=["Hazard"]]
+transform = Transform3D(-0.29515648, -0.6333404, -0.71537566, 0.90640366, -0.4224125, 0, -0.3021837, -0.6484192, 0.69873995, 4.281427, 1.2850685, -6.9831142)
+use_collision = true
+size = Vector3(21.68164, 2.8026123, 5.8442383)
+material = SubResource("StandardMaterial3D_jt1vd")
+
+[node name="BackgroundBlock4" type="CSGBox3D" parent="Floor" groups=["Hazard"]]
+transform = Transform3D(-0.4047506, -0.8685049, 0.28613994, 0.9064038, -0.4224126, 4.1648146e-08, 0.12086904, 0.25935817, 0.9581878, 12.619559, 1.9476576, -6.445661)
+use_collision = true
+size = Vector3(18.124512, 2.8026123, 5.8442383)
+material = SubResource("StandardMaterial3D_jt1vd")
+
+[node name="BackgroundBlock5" type="CSGBox3D" parent="Floor" groups=["Hazard"]]
+transform = Transform3D(-0.985741, 0.14519817, 0.08504308, -0.11707035, -0.954804, 0.27321008, 0.120869055, 0.2593582, 0.9581878, -3.0529728, 3.932272, -6.445661)
+use_collision = true
+size = Vector3(18.124512, 2.8026123, 5.8442383)
+material = SubResource("StandardMaterial3D_jt1vd")
+
 [node name="LaunchPad" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.381815, 0.25, 0)
 use_collision = true
 size = Vector3(4, 0.5, 4)
 material = SubResource("StandardMaterial3D_bri2l")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="LaunchPad"]
+light_color = Color(0.27949968, 0.5036889, 0.9575743, 1)
+light_energy = 16.0
+light_specular = 2.994
+shadow_enabled = true
+omni_range = 8.294815
+
 [node name="LandingPad" type="CSGBox3D" parent="." groups=["Goal"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.4596815, 0.25, 0)
 use_collision = true
 size = Vector3(4, 0.5, 4)
 material = SubResource("StandardMaterial3D_dvup1")
 script = ExtResource("1_1jt1u")
 filePath = "uid://17dskssstp2u"
 
+[node name="OmniLight3D" type="OmniLight3D" parent="LandingPad"]
+light_color = Color(0.27253732, 0.5893691, 0.23502451, 1)
+light_energy = 16.0
+light_specular = 2.994
+shadow_enabled = true
+omni_range = 8.294815
+
 [node name="Player" parent="." instance=ExtResource("1_hb0y7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 1.65, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.381815, 1.65, 0)

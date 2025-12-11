@@ -1,10 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://3bu56gtuoqqk"]
+[gd_scene load_steps=16 format=3 uid="uid://3bu56gtuoqqk"]
 
 [ext_resource type="Script" uid="uid://dspgns1fjeuv2" path="res://Scripts/Player.gd" id="1_lu7l2"]
 [ext_resource type="AudioStream" uid="uid://vfi66udbxexh" path="res://Assets/SFX - Death Explosion.ogg" id="2_nj4ej"]
 [ext_resource type="AudioStream" uid="uid://cefxu44uqc81o" path="res://Assets/SFX - Success.ogg" id="3_0yq7s"]
 [ext_resource type="AudioStream" uid="uid://w68t87xr7xl3" path="res://Assets/SFX - Main engine thrust.ogg" id="4_hwx2g"]
 [ext_resource type="PackedScene" uid="uid://ux6ivcx1ovdp" path="res://Assets/Particles/booster_particles.tscn" id="5_ortbp"]
+[ext_resource type="PackedScene" path="res://Assets/Particles/explosion_particles.tscn" id="6_nukyv"]
+[ext_resource type="PackedScene" path="res://Assets/Particles/success_particles.tscn" id="7_v8uht"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_40xw5"]
 
@@ -40,31 +42,38 @@ linear_damp = 1.0
 angular_damp = 3.0
 script = ExtResource("1_lu7l2")
 
-[node name="Body" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Mesh"]
 mesh = SubResource("CylinderMesh_40xw5")
 skin = SubResource("Skin_lu7l2")
+skeleton = NodePath("../..")
 
-[node name="BodyNose" type="MeshInstance3D" parent="."]
+[node name="BodyNose" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 mesh = SubResource("CylinderMesh_ortbp")
 skin = SubResource("Skin_lu7l2")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_hfly6")
 
-[node name="Thruster" type="MeshInstance3D" parent="."]
+[node name="Thruster" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 mesh = SubResource("CylinderMesh_nukyv")
 skin = SubResource("Skin_lu7l2")
+skeleton = NodePath("../..")
 
-[node name="ThrusterRight" type="MeshInstance3D" parent="."]
+[node name="ThrusterRight" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.38784254, -1, 0)
 mesh = SubResource("CylinderMesh_nukyv")
 skin = SubResource("Skin_lu7l2")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_v8uht")
 
-[node name="ThrusterLeft" type="MeshInstance3D" parent="."]
+[node name="ThrusterLeft" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.388, -1, 0)
 mesh = SubResource("CylinderMesh_nukyv")
 skin = SubResource("Skin_lu7l2")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_0wesu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -94,5 +103,9 @@ emitting = false
 
 [node name="BoosterParticles" parent="Particles" instance=ExtResource("5_ortbp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.244769, 0)
+
+[node name="ExplosionParticles" parent="Particles" instance=ExtResource("6_nukyv")]
+
+[node name="SuccessParticles" parent="Particles" instance=ExtResource("7_v8uht")]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
