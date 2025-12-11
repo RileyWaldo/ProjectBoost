@@ -12,6 +12,8 @@
 axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
+contact_monitor = true
+max_contacts_reported = 10
 linear_damp = 1.0
 angular_damp = 3.0
 script = ExtResource("1_lu7l2")
@@ -22,3 +24,5 @@ skin = SubResource("Skin_lu7l2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_lu7l2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
