@@ -7,8 +7,12 @@ extends RigidBody3D
 ## How long in seconds before respawn or next level
 @export var delay: float = 2.5
 
-@onready var audioExplosion: AudioStreamPlayer = $AudioExplosion
-@onready var audioSuccess: AudioStreamPlayer = $AudioSuccess
+@onready var audioExplosion: AudioStreamPlayer = $Audio/Explosion
+@onready var audioSuccess: AudioStreamPlayer = $Audio/Success
+@onready var audioRocket: AudioStreamPlayer3D = $Audio/Rocket
+@onready var boosterParticles: GPUParticles3D = $Particles/BoosterParticles
+@onready var boosteParticlesLeft: GPUParticles3D = $Particles/BoosterParticlesLeft
+@onready var boosterParticlesRight: GPUParticles3D = $Particles/BoosterParticlesRight
 
 const goalGroup: String = "Goal"
 const deathGroup: String = "Hazard"
@@ -19,6 +23,8 @@ func CrashSequence() -> void:
 	if(isTransitioning):
 		return
 	
+	boosterParticles.emitting = false
+	audioRocket.stop()
 	audioExplosion.play()
 	isTransitioning = true
 	var tween: Tween = create_tween()
@@ -36,6 +42,8 @@ func CompleteLevel(filePath: String) -> void:
 	tween.tween_callback(get_tree().change_scene_to_file.bind(filePath))
 	
 func MovePlayer(delta: float) -> void:
+	boosteParticlesLeft.emitting = false
+	boosterParticlesRight.emitting = false
 	if(isTransitioning):
 		return
 	
@@ -43,12 +51,23 @@ func MovePlayer(delta: float) -> void:
 		apply_central_force(basis.y * delta * thrustForce)
 		
 	if(Input.is_action_pressed("rotateLeft")):
+		boosteParticlesLeft.emitting = true
 		apply_torque(Vector3(0.0, 0.0, torqueForce * delta))
 		
 	if(Input.is_action_pressed("rotateRight")):
+		boosterParticlesRight.emitting = true
 		apply_torque(Vector3(0.0, 0.0, -torqueForce * delta))
+
 func _process(delta: float) -> void:
 	MovePlayer(delta)
+	
+	if(!isTransitioning and Input.is_action_just_pressed("boost")):
+		audioRocket.play()
+		boosterParticles.emitting = true
+		
+	if(Input.is_action_just_released("boost")):
+		audioRocket.stop()
+		boosterParticles.emitting = false
 
 
 func _on_body_entered(body: Node) -> void:
